@@ -8,22 +8,22 @@ class AddBurgerForm extends React.Component {
     descRef = React.createRef();
     imageRef = React.createRef();
 
-    createBurger = (event) => {
+    createBurger = event => {
         event.preventDefault();
         const burger = {
             name: this.nameRef.current.value,
-            price: parseFloat(this.priceRef.current.value),
+            price: parseFloat(this.priceRef.current.value || 0),
             status: this.statusRef.current.value,
             desc: this.descRef.current.value,
             image: this.imageRef.current.value,
-        }
+        };
         this.props.addBurger(burger);
         event.currentTarget.reset(); // update of form
     };
 
     render() {
         return (
-            <form className="burger-edit" onSubmit={this.createBurger}>
+            <form className='burger-edit' onSubmit={this.createBurger}>
                 <input ref={this.nameRef} name='name' type='text' placeholder='Name' autoComplete="oft" />
                 <input ref={this.priceRef} name='price' type='text' placeholder='Price' autoComplete="oft" />
                 <select ref={this.statusRef} name='status' className="status">
@@ -34,8 +34,8 @@ class AddBurgerForm extends React.Component {
                 <input ref={this.imageRef} name='image' type='text' placeholder='image' autoComplete="oft" />
             <button type="submit">+Добавить в Меню</button>
             </form>
-        )
-    }
-}
+        ) 
+    };debugger
+};
 
 export default AddBurgerForm;
