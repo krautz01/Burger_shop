@@ -8,13 +8,13 @@ class Header extends React.Component {
                     <div className="header-content">
                         <div className="header-rating">
                             <div className="header-rating_tag">Рейтинг:</div>
-                            <div className="header-rating_ticon">+++</div>
+                            <div className="header-rating_ticon">+++++</div>
                         </div>
 
                         <div className="header-divider"></div>
                         <h1 className="font-effect-fire-animation">Hot Burgers</h1>
                         <h3>
-                            <span>Быстроя доставка грячих
+                            <span>Быстрая доставка грячих
                                 <span className="sub-header">#бургеров</span>
                             </span>
                         </h3>
