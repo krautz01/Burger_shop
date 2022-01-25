@@ -6,21 +6,22 @@ class Landing extends React.Component {
     display: false,
     title: "",
     url: "",
-  }
+  };
 
   displayList = () => {
     const { display } = this.state;
     this.setState({ display: !display })
-  }
+  };
 
   getTitle = restaurant => {
     const { title, url } = restaurant;
     this.setState({ title, url, display: false })
-  }
+  };
 
   goToRestaurant = () => {
-
-  }
+    const {url} = this.state;
+    this.props.history.push(`/restaurant/${url}`);
+  };
 
   render() {
     return (

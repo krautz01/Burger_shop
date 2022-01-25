@@ -13,12 +13,17 @@ class App extends React.Component {
     };
 
     componentDidMount() {
-        /* const {params} = this.props.match; */
-        this.ref = base.syncState(`${this.props.match.params.restaurantId}/burgers`, {
+        console.log('mount');
+        const {params} = this.props.match;
+        this.ref = base.syncState(`${params.restaurantId}/burgers`, {
             context: this,
             state: 'burgers',
         });
     }
+
+    componentWillUnmount() {
+        base.removeBinding(this.ref);
+      }
 
     addBurger = burger => {
         const burgers = { ...this.state.burgers, }; // copy of stateobject
@@ -39,25 +44,35 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="burger-paradise">
-
-                <div className="menu">
+            <div className='burger-paradise'>
+                <div className='menu'>
                     <Header title='Hot Burgers' />
-                    <ul className="burgers">
+                    <ul className='burgers'>
                         {Object.keys(this.state.burgers).map(key => {
-                            return <Burger key={key}
-                                index={key}
-                                details={this.state.burgers[key]}
-                                addToOrder={this.addToOrder}
-                            />
+                            return (
+                                <Burger
+                                    key={key}
+                                    index={key}
+                                    addToOrder={this.addToOrder}
+                                    details={this.state.burgers[key]}
+                                />
+                            );
                         })}
                     </ul>
                 </div>
-                <Order burgers={this.state.burgers} order={this.state.order}  />
-                <MenuAdmin addBurger={this.addBurger}
-                    loadSampleBurgers={this.loadSampleBurgers}
+                <Order
+                    deleteFromOrder={this.deleteFromOrder}
+                    burgers={this.state.burgers}
+                    order={this.state.order}
                 />
-
+                <MenuAdmin
+                    addBurger={this.addBurger}
+                    loadSampleBurgers={this.loadSampleBurgers}
+                    burgers={this.state.burgers}
+                    updateBurger={this.updateBurger}
+                    deleteBurger={this.deleteBurger}
+                    handleLogout={this.handleLogout}
+                />
             </div>
         )
     }
