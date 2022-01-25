@@ -4,12 +4,21 @@ import MenuAdmin from "./MenuAdmin";
 import Order from "./Order";
 import sampleBurgers from '../sample-burgers'
 import Burger from "./Burger";
+import base from "../base";
 
 class App extends React.Component {
     state = {
         burgers: {},
         order: {},
     };
+
+    componentDidMount() {
+        /* const {params} = this.props.match; */
+        this.ref = base.syncState(`${this.props.match.params.restaurantId}/burgers`, {
+            context: this,
+            state: 'burgers',
+        });
+    }
 
     addBurger = burger => {
         const burgers = { ...this.state.burgers, }; // copy of stateobject
