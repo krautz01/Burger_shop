@@ -27,8 +27,8 @@ class Order extends React.Component {
     }
 
     render() {
-        const orderIDs = Object.keys(this.props.order)
-        const total = orderIDs.reduce((prevTotal, key) => {
+        const orderIds = Object.keys(this.props.order);
+        const total = orderIds.reduce((prevTotal, key) => {
             const burger = this.props.burgers[key];
             const count = this.props.order[key];
             const isAvailable = burger && burger.status === 'available';
@@ -44,7 +44,7 @@ class Order extends React.Component {
             <div className="order-wrap">
                 <h2>Ваш заказ</h2>
                 <ul className="order">
-                    {orderIDs.map(this.renderOrder)}
+                    {orderIds.map(this.renderOrder)}
                 </ul>
 
                 {total > 0 ? (<Shipment total={total} />)

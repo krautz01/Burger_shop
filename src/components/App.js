@@ -14,9 +14,9 @@ class App extends React.Component {
 
     componentDidMount() {
         const { params } = this.props.match;
-        const localStorage = localStorage.getItem(params.restaurantId);
+        const localStorageRef = localStorage.getItem(params.restaurantId);
 
-        if (localStorage) {
+        if (localStorageRef) {
             this.setState({ order: JSON.parse(localStorageRef) })
         };
         this.ref = base.syncState(`${params.restaurantId}/burgers`, {
@@ -36,9 +36,15 @@ class App extends React.Component {
 
     addBurger = burger => {
         const burgers = { ...this.state.burgers, }; // copy of stateobject
-        burger = burgers[`burger${Date.now()}`]; // add new burger to burgers
+        burgers[`burger${Date.now()}`] = burger; // add new burger to burgers
         this.setState({ burgers }); // write our new burgers in state
     };
+
+    updateBurger = (key, updatedBurger) => {
+        const burgers = { ...this.state.burgers, }; // copy of stateobject
+        burgers[key] = updatedBurger; // update of desired burger
+        this.setState({ burgers }); // write our new burgers in state
+    }
 
     loadSampleBurgers = () => {
         this.setState({ burgers: sampleBurgers });
@@ -70,17 +76,16 @@ class App extends React.Component {
                     </ul>
                 </div>
                 <Order
-                    deleteFromOrder={this.deleteFromOrder}
                     burgers={this.state.burgers}
                     order={this.state.order}
+                    deleteFromOrder={this.deleteFromOrder}
                 />
+                
                 <MenuAdmin
                     addBurger={this.addBurger}
                     loadSampleBurgers={this.loadSampleBurgers}
                     burgers={this.state.burgers}
                     updateBurger={this.updateBurger}
-                    deleteBurger={this.deleteBurger}
-                    handleLogout={this.handleLogout}
                 />
             </div>
         )
